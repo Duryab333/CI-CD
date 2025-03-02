@@ -123,6 +123,7 @@ systemctl restart docker
 ```
 To ensure docker is runing 
 ```
+ su - jenkins
  docker run hello-world
 ```
 
