@@ -2,9 +2,10 @@
 name: Duryab
 # an automatic trigger [deploayment], whenever change is pushed ot branch
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch: 
+#  push:
+#    branches:
+#      - main
 jobs:
   greet:
     runs-on: ubuntu-latest
