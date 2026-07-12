@@ -2,13 +2,16 @@
 
 name: test-build-push
 on:
-  workflow_dispatch:
-#  push:
-#    branches:
-#      - main
-#  pull_request:
-#    branches:
-#      - main
+#  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - requirements.txt
+  pull_request:
+    branches:
+      - main
+  
 jobs:
   test:
     runs-on: ubuntu-latest
