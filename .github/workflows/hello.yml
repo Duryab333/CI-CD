@@ -13,7 +13,7 @@ jobs:
       - name: ask
         run: echo "how are you "
   details:
-    runs-on: uubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: show what is the veriosn of python and docker image
         run: docker --version && python --version
