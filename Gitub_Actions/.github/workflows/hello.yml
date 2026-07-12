@@ -1,12 +1,12 @@
+---
 name: Duryab
 on:
   push:
-    branches: [main]
-
-
+    branches:
+      - main
 jobs:
   greet:
-    runs-on: ubntu-latest
+    runs-on: ubuntu-latest
     steps:
-      - name: "say hello"
+      - name: say hello
         run: echo "Hello Dosto for $USER"
