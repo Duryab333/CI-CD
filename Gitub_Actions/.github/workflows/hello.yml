@@ -1,0 +1,12 @@
+name: Duryab
+on:
+  push:
+    branches: [main]
+
+
+jobs:
+  greet:
+    runs-on: ubntu-latest
+    steps:
+      - name: "say hello"
+        run: echo "Hello Dosto for $USER"
