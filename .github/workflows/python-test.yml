@@ -1,26 +1,32 @@
 ---
-name: CICD
+name: Python Test
+
 on:
-  workflow_dispatch:
-  
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
 jobs:
-  code:
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkoout the code
-        run: echo "code clone form github"
-  build:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: build Docker container
-        run: echo "build Docker container"
   test:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Test the container
-        run: echo "testing "
-  deploy:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: deploying the app
-        run: echo "deploying"
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Run tests
+        run: python -m pytest
