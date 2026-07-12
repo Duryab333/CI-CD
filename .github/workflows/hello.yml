@@ -1,0 +1,12 @@
+name: Duryab
+on:
+  push:
+    branches: [main]
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Greet"
+        run: echo "Say hello $USER"
+      - name: "ask"
+        run: echo "how are you "
