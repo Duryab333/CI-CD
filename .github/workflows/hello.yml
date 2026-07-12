@@ -1,14 +1,16 @@
+---
 name: Duryab
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 jobs:
   greet:
     runs-on: ubuntu-latest
     steps:
-      - name: "Greet"
+      - name: Greet
         run: echo "Say hello $USER"
-      - name: "ask"
+      - name: ask
         run: echo "how are you "
   details:
     runs-on: uubuntu-22.04
