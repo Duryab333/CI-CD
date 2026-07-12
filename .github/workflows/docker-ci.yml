@@ -1,0 +1,22 @@
+---
+name: Docker-CI
+on:
+  workflow_dispatch:
+#  push:
+#    branches:
+#      - main
+#  pull_request:
+#    branches:
+#      - main
+jobs:
+  docker-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v6
+      - name: build docker image
+        run: docker build -t python-app:test .
+      - name: List created image
+        run: docker images python-app:test
+      - name: run container
+        run: docker run --rm python-app:test
