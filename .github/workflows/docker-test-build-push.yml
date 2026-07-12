@@ -1,16 +1,25 @@
 ---
+# Name of work flow
 name: test-build-push
+# Action got trigger when event happens
 on:
-  workflow_dispatch: 
-#  push:
-#    branches:
-#      - main
+#  workflow_dispatch: 
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+# Jobs are defined to define tasks
 jobs:
+  # one job is test 
   test:
+    # defines on which github runner it will run
     runs-on: ubuntu-latest
+    # steps in that job
     steps:
       - name: checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: setup pyhton
         uses: actions/setup-python@v6
         with:
@@ -21,9 +30,13 @@ jobs:
           python -m pip install -r requirements.txt
       - name: testing
         run: python -m pytest
+  # 2nd job is build-push
   build-push:
     runs-on: ubuntu-latest
+    # condion: first testing should be completed
     needs: test
+    # Prevents Docker Hub login and pushing during pull requests
+    if: github.event_name == 'push'
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -34,9 +47,10 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build Docker image
         run: |
-          docker build \
-            -t ${{ secrets.DOCKERHUB_USERNAME }}/python-app:latest .
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/python-app:latest . 
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/python-app:${{ github.sha }} . # Add version tags to the Docker image
       - name: Push image to Docker Hub
         run: |
-          docker push \
-            ${{ secrets.DOCKERHUB_USERNAME }}/python-app:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/python-app:latest 
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/python-app:${{ github.sha }}
+            
