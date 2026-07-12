@@ -3,13 +3,14 @@
 name: test-build-push
 # Action got trigger when event happens
 on:
-#  workflow_dispatch: 
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch: 
+#  push:
+#    branches:
+#      - main
+#  pull_request:
+#    branches:
+#      - main
+
 # Jobs are defined to define tasks
 jobs:
   # one job is test 
