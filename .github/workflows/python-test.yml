@@ -1,7 +1,8 @@
 ---
 name: CICD
 on:
-  workflow_dispatch: null
+  workflow_dispatch:
+  
 jobs:
   code:
     runs-on: ubuntu-latest
