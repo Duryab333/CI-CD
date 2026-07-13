@@ -8,6 +8,7 @@ on:
       - main
     paths:
       - requirements.txt
+      - test_app.py
   pull_request:
     branches:
       - main
