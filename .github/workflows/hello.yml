@@ -2,7 +2,17 @@
 name: Duryab
 # an automatic trigger [deploayment], whenever change is pushed ot branch
 on:
-  workflow_dispatch: 
+  workflow_dispatch:
+    inputs:
+      environments:
+        description: this is the enviornemnt vlaue wher this workflows run
+        type: choice
+        default: true'
+        required: true
+        options:
+          - dev
+          - prod
+          - staging
 #  push:
 #    branches:
 #      - main
