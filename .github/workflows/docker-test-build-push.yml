@@ -1,18 +1,17 @@
 ---
-
 name: test-build-push
 on:
-#  workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - requirements.txt
-      - test_app.py
-  pull_request:
-    branches:
-      - main
-  
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: This is the env value where this workflow runs
+        default: true
+        type: choice
+        required: true
+        options:
+          - dev
+          - prod
+          - stag
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -35,7 +34,7 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v7
       - name: setup python
-        uses:  actions/setup-python@v6
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
       - name: install flake
