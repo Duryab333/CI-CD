@@ -5,7 +5,7 @@ on:
     inputs:
       environment:
         description: This is the env value where this workflow runs
-        default: true
+        default: 'dev'
         type: choice
         required: true
         options:
@@ -42,6 +42,7 @@ jobs:
           python -m pip install flake8
           flake8 .
   build-push:
+    if: inputs.environment == 'dev'
     runs-on: ubuntu-latest
     needs:
       - test
