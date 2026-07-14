@@ -6,11 +6,13 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         python_version: ["3.9","3.10","3.11","3.12"]
+        ubuntu-version: ["ubuntu-slim", " ubuntu-latest"]
+    runs-on: ${{matrix.ubuntu-version}}
+   
     steps:
       - name: checkout code
         uses: actions/checkout@v7
@@ -25,7 +27,7 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
           
-      - name: Display pyhton version
+      - name: Display python version
         run: python --version
         
       - name: run test
