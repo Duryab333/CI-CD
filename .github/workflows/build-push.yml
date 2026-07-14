@@ -6,7 +6,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-latest
     steps:
       
       - name: Checkout code
@@ -23,14 +23,14 @@ jobs:
           python -m pip install -r  requirements.txt
       
       - name: runing test
-        run: pyhton pytest
+        run:  python -m pytest
         
   build-push:
     runs-on: ubuntu-latest
     needs: test
     steps:  
       - name: Docker login
-        uses: actions/login-action@v4
+        uses: docker/login-action@v4
         with:
           username: ${{vars.DOCKERHUB_USERNAME}}
           password: ${{secrets.DOCKERHUB_TOKEN}}
@@ -38,9 +38,11 @@ jobs:
       - name: Docker image build
         uses: docker/build-push-action@v7
         with:
-          content: .
+          context: .
           push: true
-          tag: ${{vars.DOCKERHUB_USERNAME}}/python-app:${{ github.sha }}
+          tags: |
+            ${{vars.DOCKERHUB_USERNAME}}/python-app:latest
+            ${{vars.DOCKERHUB_USERNAME}}/python-app:${{ github.sha }}
    
         
     
