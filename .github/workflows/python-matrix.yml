@@ -1,0 +1,37 @@
+name: Python Matrix Testing
+
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python_version: ["3.9","3.10","3.11","3.12"]
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v7
+        
+      - name: python setup for ${{matrix.python_version}}
+        uses: actions/setup-python@v6 
+        with:
+          python-version: ${{matrix.python_version}}
+          
+      - name: install dependencies
+        run: |
+          pyhton -m pip install --upgrade pip
+          python -m pip install -r requiements.txt
+          
+      - name: Display pyhton version
+        run: python --version
+        
+      - name: run test
+        run: pyhton -m pytest
+        
+
+    
