@@ -24,14 +24,14 @@ jobs:
           
       - name: install dependencies
         run: |
-          pyhton -m pip install --upgrade pip
+          python -m pip install --upgrade pip
           python -m pip install -r requiements.txt
           
       - name: Display pyhton version
         run: python --version
         
       - name: run test
-        run: pyhton -m pytest
+        run: python -m pytest
         
 
     
